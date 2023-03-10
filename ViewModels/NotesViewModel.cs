@@ -46,11 +46,14 @@ internal class NotesViewModel : IQueryAttributable
 
             // If note is found, update it
             if (matchedNote != null)
+            {
                 matchedNote.Reload();
-
-            // If note isn't found, it's new; add it.
+                AllNotes.Move(AllNotes.IndexOf(matchedNote), 0);
+            }
             else
-                AllNotes.Add(new NoteViewModel(Models.Note.Load(noteId)));
+            {
+                AllNotes.Insert(0, new NoteViewModel(Models.Note.Load(noteId)));
+            }
         }
     }
 }
